@@ -69,6 +69,9 @@ sub any_moose {
 
     return $fragment if Class::MOP::does_metaclass_exist($package);
 
+    # If we're loading up the backing class, then give them Mouse
+    return 'Mouse' if $fragment eq 'Moose';
+
     require Carp;
     Carp::croak "Neither Moose nor Mouse backs the '$package' package.";
 }
