@@ -55,7 +55,8 @@ sub _install_module {
 
     require $file;
 
-    $module->export_to_level(2, $self, @{ $options->{imports} });
+    eval "package $options->{package};\n"
+       . '$module->import(@{ $options->{imports} });';
 }
 
 sub any_moose {
