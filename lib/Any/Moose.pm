@@ -41,7 +41,7 @@ sub _canonicalize_options {
     }
 
     $options{package} = $args{package};
-    $options{module}  = any_moose($args{module});
+    $options{module}  = any_moose($args{module}, $args{package});
 
     return \%options;
 }
