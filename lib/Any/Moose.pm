@@ -7,10 +7,9 @@ sub import {
     my $pkg  = caller;
 
     # first options are for Mo*se
-    unshift @_, 'Moose' if ref($_[0]);
+    unshift @_, 'Moose' if !@_ || ref($_[0]);
 
     while (my $module = shift) {
-        my $options = ref($_[0]) ? shift : [];
         $options = $self->_canonicalize_options(
             module  => $module,
             options => $options,
