@@ -8,7 +8,7 @@ do {
     use Any::Moose;
 
     ::ok(__PACKAGE__->can('meta'), 'Mo*se was installed');
-    ::like(__PACKAGE__->meta, /^Mouse/, 'Mouse was installed');
+    ::like(__PACKAGE__->meta, qr/^Mouse/, 'Mouse was installed');
 
     ::is(any_moose, 'Mouse');
     ::is(any_moose('::Util::TypeConstraints'), 'Mouse::Util::TypeConstraints');
