@@ -19,6 +19,10 @@ sub import {
 
         _install_module($options);
     }
+
+    # give them any_moose too
+    no strict 'refs';
+    *{$pkg.'::any_moose'} = \&any_moose;
 }
 
 sub _canonicalize_options {
