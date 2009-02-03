@@ -41,6 +41,18 @@ sub _canonicalize_options {
     return \%options;
 }
 
+sub _install_module {
+    my $self    = shift;
+    my $options = shift;
+
+    my $module = $options->{module};
+    (my $file = $module . '.pm') =~ s{::}{/}g;
+
+    require $file;
+
+    $module->export_to_level(2, $self, @{ $options->{imports} });
+}
+
 sub any_moose {
     my $fragment = shift;
     my $package  = shift || caller;
