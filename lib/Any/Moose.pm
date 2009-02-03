@@ -61,6 +61,8 @@ sub any_moose {
     my $fragment = shift;
     my $package  = shift || caller;
 
+    $fragment = 'Moose' if !defined($fragment);
+
     # any_moose("::Util") -> any_moose("Moose::Util")
     $fragment =~ s/^::/Moose::/;
 
