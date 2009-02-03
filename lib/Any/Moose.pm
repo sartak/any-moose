@@ -40,7 +40,7 @@ sub _canonicalize_options {
     }
 
     $options{package} = $args{package};
-    $options{module}  = $self->_canonicalize_fragment($args{module});
+    $options{module}  = any_moose($args{module});
 
     return \%options;
 }
