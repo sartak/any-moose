@@ -6,8 +6,22 @@ sub any_moose {
     my $fragment = shift;
     my $package  = shift || caller;
 
-    return "Mouse$fragment" if Mouse::Meta::Class::_metaclass_cache($package);
-    return "Moose$fragment" if Class::MOP::does_metaclass_exist($package);
+    # any_moose("::Util") -> any_moose("Moose::Util")
+    $fragment =~ s/^::/Moose::/;
+
+    # any_moose("Mouse::Util") -> any_moose("Moose::Util")
+    $fragment =~ s/^Mouse::/Moose::/;
+
+    # any_moose("Util") -> any_moose("Moose::Util")
+    $fragment =~ s/^(?!Moose::/)Moose::/;
+
+    # Mouse gets first dibs because it doesn't introspect existing classes
+    if (Mouse::Meta::Class::_metaclass_cache($package)) {
+        $fragment =~ s/^Moose/Mouse/;
+        return $fragment;
+    }
+
+    return $fragment if Class::MOP::does_metaclass_exist($package);
 
     require Carp;
     Carp::croak "Neither Moose nor Mouse backs the '$package' package.";
