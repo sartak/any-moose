@@ -2,6 +2,45 @@ package Any::Moose;
 use strict;
 use warnings;
 
+sub import {
+    my $self = shift;
+    my $pkg  = caller;
+
+    # first options are for Mo*se
+    unshift @_, 'Moose' if ref($_[0]);
+
+    while (my $module = shift) {
+        my $options = ref($_[0]) ? shift : [];
+        $options = _canonicalize_options(
+            module  => $module,
+            options => $options,
+            package => $pkg,
+        );
+
+        _install_module($options);
+    }
+}
+
+sub _canonicalize_options {
+    my $self = shift;
+    my %args = @_;
+
+    my %options;
+    if (ref($args{options}) eq 'HASH') {
+        %options = %{ $args{options} };
+    }
+    else {
+        %options = (
+            imports => $args{options},
+        );
+    }
+
+    $options{package} = $args{package};
+    $options{module}  = any_moose($args{module}, $options{package});
+
+    return \%options;
+}
+
 sub any_moose {
     my $fragment = shift;
     my $package  = shift || caller;
