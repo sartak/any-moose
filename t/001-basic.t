@@ -13,9 +13,12 @@ do {
     ::is(any_moose, 'Mouse');
     ::is(any_moose('::Util::TypeConstraints'), 'Mouse::Util::TypeConstraints');
 
-    require Moose;
-
     ::is(any_moose, 'Mouse', 'still Mouse even if Moose is loaded');
+};
+
+do {
+    package Just::Load::Moose;
+    use Moose;
 };
 
 do {
