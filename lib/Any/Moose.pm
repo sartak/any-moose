@@ -11,13 +11,13 @@ sub import {
 
     while (my $module = shift) {
         my $options = ref($_[0]) ? shift : [];
-        $options = _canonicalize_options(
+        $options = $self->_canonicalize_options(
             module  => $module,
             options => $options,
             package => $pkg,
         );
 
-        _install_module($options);
+        $self->_install_module($options);
     }
 
     # give them any_moose too
@@ -124,6 +124,7 @@ Any::Moose - use Moose or Mouse modules
     package My::Meta::Class;
 
     # uses Moose if 0.65 is loaded; uses Mouse if 0.14 is loaded; otherwise dies
+    # XXX: not implemented yet!
     use Any::Moose {
         moose_version => '0.65',
         mouse_version => '0.14',
