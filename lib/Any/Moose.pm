@@ -2,6 +2,17 @@ package Any::Moose;
 use strict;
 use warnings;
 
+sub any_moose {
+    my $fragment = shift;
+    my $package  = shift || caller;
+
+    return "Mouse$fragment" if Mouse::Meta::Class::_metaclass_cache($package);
+    return "Moose$fragment" if Class::MOP::does_metaclass_exist($package);
+
+    require Carp;
+    Carp::croak "Neither Moose nor Mouse backs the '$package' package.";
+}
+
 1;
 
 __END__
