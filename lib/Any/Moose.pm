@@ -91,7 +91,7 @@ sub _canonicalize_fragment {
     $fragment =~ s/^::/Moose::/;
 
     # any_moose("Mouse::Util") -> any_moose("Moose::Util")
-    $fragment =~ s/^Mouse::/Moose::/;
+    $fragment =~ s/^Mouse\b/Moose/;
 
     # any_moose("Util") -> any_moose("Moose::Util")
     $fragment =~ s/^(?!Moose)/Moose::/;
