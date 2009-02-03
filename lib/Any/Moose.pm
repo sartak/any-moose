@@ -10,6 +10,8 @@ sub import {
     unshift @_, 'Moose' if !@_ || ref($_[0]);
 
     while (my $module = shift) {
+        my $options = @_ && ref($_[0]) ? shift : [];
+
         $options = $self->_canonicalize_options(
             module  => $module,
             options => $options,
