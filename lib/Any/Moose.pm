@@ -54,6 +54,9 @@ sub any_moose {
     # any_moose("Util") -> any_moose("Moose::Util")
     $fragment =~ s/^(?!Moose::/)Moose::/;
 
+    # any_moose("Moose::") (via any_moose("")) -> any_moose("Moose")
+    $fragment =~ s/^Moose::$/Moose/;
+
     # Mouse gets first dibs because it doesn't introspect existing classes
     if (Mouse::Meta::Class::_metaclass_cache($package)) {
         $fragment =~ s/^Moose/Mouse/;
