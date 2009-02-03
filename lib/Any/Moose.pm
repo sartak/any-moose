@@ -58,10 +58,25 @@ sub _install_module {
 }
 
 sub any_moose {
-    my $fragment = shift;
+    my $fragment = _canonicalize_fragment(shift);
     my $package  = shift || caller;
 
-    $fragment = 'Moose' if !defined($fragment);
+    # Mouse gets first dibs because it doesn't introspect existing classes
+    if (Mouse::Meta::Class::_metaclass_cache($package)) {
+        $fragment =~ s/^Moose/Mouse/;
+        return $fragment;
+    }
+
+    return $fragment if Class::MOP::does_metaclass_exist($package);
+
+    require Carp;
+    Carp::croak "Neither Moose nor Mouse backs the '$package' package.";
+}
+
+sub _canonicalize_fragment {
+    my $fragment = shift;
+
+    return 'Moose' if !defined($fragment);
 
     # any_moose("::Util") -> any_moose("Moose::Util")
     $fragment =~ s/^::/Moose::/;
@@ -75,16 +90,7 @@ sub any_moose {
     # any_moose("Moose::") (via any_moose("")) -> any_moose("Moose")
     $fragment =~ s/^Moose::$/Moose/;
 
-    # Mouse gets first dibs because it doesn't introspect existing classes
-    if (Mouse::Meta::Class::_metaclass_cache($package)) {
-        $fragment =~ s/^Moose/Mouse/;
-        return $fragment;
-    }
-
-    return $fragment if Class::MOP::does_metaclass_exist($package);
-
-    require Carp;
-    Carp::croak "Neither Moose nor Mouse backs the '$package' package.";
+    return $fragment;
 }
 
 1;
