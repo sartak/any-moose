@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::More tests => 1;
+use Test::More tests => 7;
 
 do {
     package Moused::Any::Moose;
