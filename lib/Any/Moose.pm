@@ -64,7 +64,7 @@ sub any_moose {
     my $package  = shift || caller;
 
     # Mouse gets first dibs because it doesn't introspect existing classes
-    if ($INC{'Mouse.pm'} && Mouse::Meta::Class->_metaclass_cache($package)) {
+    if ($INC{'Mouse.pm'} && (Mouse::Meta::Class->_metaclass_cache($package) || Mouse::Meta::Role->_metaclass_cache($package)) {
         $fragment =~ s/^Moose/Mouse/;
         return $fragment;
     }
@@ -73,9 +73,9 @@ sub any_moose {
                      && Class::MOP::does_metaclass_exist($package);
 
     # If we're loading up the backing class...
-    if ($fragment eq 'Moose') {
-        return 'Moose' if $INC{'Class/MOP.pm'};
-        return 'Mouse';
+    if ($fragment eq 'Moose' || $fragment eq 'Moose::Role') {
+        $fragment =~ s/Moose/Mouse/ if !$INC{'Class/MOP.pm'};
+        return $fragment;
     }
 
     require Carp;
