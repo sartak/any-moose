@@ -64,7 +64,10 @@ sub any_moose {
     my $package  = shift || caller;
 
     # Mouse gets first dibs because it doesn't introspect existing classes
-    if ($INC{'Mouse.pm'} && (Mouse::Meta::Class->_metaclass_cache($package) || Mouse::Meta::Role->_metaclass_cache($package))) {
+    my $has_mouse = ($INC{'Mouse.pm'} && Mouse::Meta::Class->_metaclass_cache($package))
+                 || ($INC{'Mouse/Role.pm'} && Mouse::Meta::Role->_metaclass_cache($package));
+
+    if ($has_mouse) {
         $fragment =~ s/^Moose/Mouse/;
         return $fragment;
     }
