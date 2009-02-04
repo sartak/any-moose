@@ -26,6 +26,25 @@ sub import {
     *{$pkg.'::any_moose'} = \&any_moose;
 }
 
+sub _backer_of {
+    my $pkg = shift;
+
+    return 'Mouse' if $INC{'Mouse.pm'}
+                   && Mouse::Meta::Class->_metaclass_cache($pkg);
+    return 'Mouse::Role' if $INC{'Mouse/Role.pm'}
+                         && Mouse::Meta::Role->_metaclass_cache($pkg);
+
+    if ($INC{'Class/MOP.pm'}) {
+        my $meta = Class::MOP::get_metaclass_by_name($pkg);
+        if ($meta) {
+            return 'Moose::Role' if $meta->isa('Moose::Meta::Role');
+            return 'Moose'       if $meta->isa('Moose::Meta::Class');
+        }
+    }
+
+    return undef;
+}
+
 sub _canonicalize_options {
     my $self = shift;
     my %args = @_;
@@ -64,16 +83,13 @@ sub any_moose {
     my $package  = shift || caller;
 
     # Mouse gets first dibs because it doesn't introspect existing classes
-    my $has_mouse = ($INC{'Mouse.pm'} && Mouse::Meta::Class->_metaclass_cache($package))
-                 || ($INC{'Mouse/Role.pm'} && Mouse::Meta::Role->_metaclass_cache($package));
 
-    if ($has_mouse) {
+    if ((_backer_of($package)||'') =~ /^Mouse/) {
         $fragment =~ s/^Moose/Mouse/;
         return $fragment;
     }
 
-    return $fragment if $INC{'Class/MOP.pm'}
-                     && Class::MOP::does_metaclass_exist($package);
+    return $fragment if (_backer_of($package)||'') =~ /^Moose/;
 
     # If we're loading up the backing class...
     if ($fragment eq 'Moose' || $fragment eq 'Moose::Role') {
