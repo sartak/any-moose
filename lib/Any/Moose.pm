@@ -26,6 +26,16 @@ sub import {
     *{$pkg.'::any_moose'} = \&any_moose;
 }
 
+sub unimport {
+    my $self = shift;
+    my $pkg  = caller;
+
+    my $backer = _backer_of($pkg);
+
+    eval "package $pkg;\n"
+       . '$backer->unimport(@_);';
+}
+
 sub _backer_of {
     my $pkg = shift;
 
