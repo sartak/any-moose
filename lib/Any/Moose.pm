@@ -160,13 +160,7 @@ Any::Moose - use Moose or Mouse modules
 =head2 COMPLEX USAGE
 
     package My::Meta::Class;
-
-    # uses Moose if 0.65 is loaded; uses Mouse if 0.14 is loaded; otherwise dies
-    # XXX: not implemented yet!
-    use Any::Moose {
-        moose_version => '0.65',
-        mouse_version => '0.14',
-    };
+    use Any::Moose;
 
     # uses subtype from Moose::Util::TypeConstraints if the class loaded Moose,
     # subtype from Mouse::Util::TypeConstraints otherwise.
@@ -178,6 +172,10 @@ Any::Moose - use Moose or Mouse modules
 
     # gives you the right class name depending on which Mo*se was loaded
     extends any_moose('::Meta::Class');
+
+=head1 AUTHOR
+
+Shawn M Moore, C<sartak@bestpractical.com>
 
 =cut
 
