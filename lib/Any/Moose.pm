@@ -108,7 +108,7 @@ sub any_moose {
     }
 
     require Carp;
-    Carp::croak "Neither Moose nor Mouse backs the '$package' package.";
+    Carp::croak("Neither Moose nor Mouse backs the '$package' package.");
 }
 
 sub _canonicalize_fragment {
