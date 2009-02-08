@@ -1,4 +1,6 @@
 package Any::Moose;
+# ABSTRACT: use Moose or Mouse modules
+
 use strict;
 use warnings;
 
@@ -142,12 +144,6 @@ sub _canonicalize_fragment {
 
 1;
 
-__END__
-
-=head1 NAME
-
-Any::Moose - use Moose or Mouse modules
-
 =head1 SYNOPSIS
 
 =head2 BASIC
@@ -182,9 +178,4 @@ Any::Moose - use Moose or Mouse modules
     # gives you the right class name depending on which Mo*se was loaded
     extends any_moose('::Meta::Class');
 
-=head1 AUTHOR
-
-Shawn M Moore, C<sartak@bestpractical.com>
-
 =cut
-
