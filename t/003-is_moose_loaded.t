@@ -11,9 +11,12 @@ BEGIN {
 
 {
     package Foo;
-    use Moose;
-}
+    BEGIN {
+        SKIP: {
+            eval 'use Moose';
+            ::skip 'Moose not installed', 1 if $@;
 
-BEGIN {
-    ::ok(Any::Moose::is_moose_loaded(), '... Moose is loaded');
+            ::ok(Any::Moose::is_moose_loaded(), '... Moose is loaded');
+        }
+    }
 }
