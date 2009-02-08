@@ -1,9 +1,13 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::More tests => 1;
+use Test::More;
 
-use Moose ();
+BEGIN {
+    eval 'require Moose';
+    plan skip_all => 'Moose not available' if $@;
+    plan tests => 1;
+}
 
 {
     package My::Role;
