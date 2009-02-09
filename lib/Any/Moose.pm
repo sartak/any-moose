@@ -187,4 +187,12 @@ sub _canonicalize_fragment {
     # gives you the right class name depending on which Mo*se was loaded
     extends any_moose('::Meta::Class');
 
+=head1 AUTHORS
+
+Shawn M Moore, C<sartak@bestpractical.com>
+
+Florian Ragwitz C<rafl@debian.org>
+
+Stevan Little C<stevan@iinteractive.com>
+
 =cut
