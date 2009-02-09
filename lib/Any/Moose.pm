@@ -4,7 +4,7 @@ package Any::Moose;
 use strict;
 use warnings;
 
-our $PREFERRED;
+our $PREFERRED = $ENV{'ANY_MOOSE'};
 
 sub import {
     my $self = shift;
