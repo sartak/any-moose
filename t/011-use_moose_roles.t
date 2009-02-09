@@ -3,6 +3,8 @@ use strict;
 use warnings;
 use Test::More;
 
+BEGIN { delete $ENV{ANY_MOOSE} }
+
 BEGIN {
     eval 'require Moose';
     plan skip_all => 'Moose not available' if $@;

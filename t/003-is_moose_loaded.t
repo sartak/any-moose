@@ -3,6 +3,8 @@ use strict;
 use warnings;
 use Test::More tests => 3;
 
+BEGIN { delete $ENV{ANY_MOOSE} }
+
 package Test;
 BEGIN {
     ::use_ok('Any::Moose');

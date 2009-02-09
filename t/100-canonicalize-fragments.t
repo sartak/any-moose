@@ -4,6 +4,8 @@ use warnings;
 use Test::More;
 require Any::Moose;
 
+BEGIN { delete $ENV{ANY_MOOSE} }
+
 my @tests = (
     ''            => 'Moose',
     'Moose'       => 'Moose',

@@ -109,6 +109,9 @@ sub any_moose {
     if ($fragment eq 'Moose' || $fragment eq 'Moose::Role') {
         if (!$PREFERRED) {
             $PREFERRED = is_moose_loaded() ? 'Moose' : 'Mouse';
+
+            (my $file = $PREFERRED . '.pm') =~ s{::}{/}g;
+            require $file;
         }
 
         $fragment =~ s/^Moose/Mouse/ if $PREFERRED eq 'Mouse';

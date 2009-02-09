@@ -3,6 +3,8 @@ use strict;
 use warnings;
 use Test::More tests => 2;
 
+BEGIN { delete $ENV{ANY_MOOSE} }
+
 do {
     package Just::Load::Moose;
     use Moose;
