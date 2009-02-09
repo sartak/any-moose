@@ -14,19 +14,20 @@ do {
     ::ok(Mouse::Util::TypeConstraints::optimized_constraints()->{XYZ}, 'subtype used Mouse');
 };
 
-do {
-    package Just::Load::Moose;
-    use Moose;
-};
+SKIP: {
+    my $loaded_moose;
+    BEGIN { $loaded_moose = eval 'require Moose' }
+    skip "Moose required for these tests to be useful" => 1 unless $loaded_moose;
 
-do {
-    package After::Moose;
-    use Any::Moose;
-    use Any::Moose '::Util::TypeConstraints';
-    use Any::Moose '::Util::TypeConstraints' => ['subtype'];
+    do {
+        package After::Moose;
+        use Any::Moose;
+        use Any::Moose '::Util::TypeConstraints';
+        use Any::Moose '::Util::TypeConstraints' => ['subtype'];
 
-    subtype 'ABC';
-    #::ok(Mouse::Util::TypeConstraints::find_type_constraint('ABC'), 'subtype used Mouse');
-    ::ok(Mouse::Util::TypeConstraints::optimized_constraints()->{ABC}, 'subtype used Mouse');
+        subtype 'ABC';
+        #::ok(Mouse::Util::TypeConstraints::find_type_constraint('ABC'), 'subtype used Mouse');
+        ::ok(Mouse::Util::TypeConstraints::optimized_constraints()->{ABC}, 'subtype used Mouse');
+    };
 };
 
