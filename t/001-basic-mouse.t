@@ -1,14 +1,15 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::More tests => 9;
+use Test::More;
 
 BEGIN { delete $ENV{ANY_MOOSE} }
 
-do {
-    package Just::Load::Moose;
-    use Moose;
-};
+BEGIN {
+    eval 'require Moose';
+    plan skip_all => 'Moose not available' if $@;
+    plan tests => 9;
+}
 
 do {
     package Moosed::Any::Moose;
