@@ -1,4 +1,4 @@
-0.03
+0.03  Mon, 09 Feb 2009
   * When we load one of Mo*se, we'll continue to load that backer even if
     Moose had become loaded
   * Skip some tests if Moose is not installed
