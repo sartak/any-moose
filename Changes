@@ -1,6 +1,8 @@
 0.03
   * When we load one of Mo*se, we'll continue to load that backer even if
     Moose had become loaded
+  * Skip some tests if Moose is not installed
+  * Hard dependency on Mouse
 
 0.02  Sun, 08 Feb 2009
   * Fix compilation error.
