@@ -1,3 +1,7 @@
+0.03
+  * When we load one of Mo*se, we'll continue to load that backer even if
+    Moose had become loaded
+
 0.02  Sun, 08 Feb 2009
   * Fix compilation error.
   * Add load_class and is_moose_loaded.

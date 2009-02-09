@@ -26,13 +26,13 @@ do {
 };
 
 do {
-    package Moosed::Any::Moose;
+    package After::Moose;
     use Any::Moose;
 
-    ::is(any_moose, 'Moose');
-    ::is(any_moose('::Util::TypeConstraints'), 'Moose::Util::TypeConstraints');
+    ::is(any_moose, 'Mouse');
+    ::is(any_moose('::Util::TypeConstraints'), 'Mouse::Util::TypeConstraints');
 
     no Any::Moose;
 };
 
-ok(!Moosed::Any::Moose->can('has'), "has was unimported");
+ok(!After::Moose->can('has'), "has was unimported");

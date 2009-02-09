@@ -4,6 +4,8 @@ package Any::Moose;
 use strict;
 use warnings;
 
+our $PREFERRED;
+
 sub import {
     my $self = shift;
     my $pkg  = caller;
@@ -105,7 +107,11 @@ sub any_moose {
 
     # If we're loading up the backing class...
     if ($fragment eq 'Moose' || $fragment eq 'Moose::Role') {
-        $fragment =~ s/Moose/Mouse/ if !is_moose_loaded();
+        if (!$PREFERRED) {
+            $PREFERRED = is_moose_loaded() ? 'Moose' : 'Mouse';
+        }
+
+        $fragment =~ s/^Moose/Mouse/ if $PREFERRED eq 'Mouse';
         return $fragment;
     }
 
