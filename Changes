@@ -1,3 +1,7 @@
+0.04  Tue, 17 Feb 2009
+  * Any::Moose now gives you strict and warnings (oops!)
+  * Support "use Any::Moose 'X::Types'" (tokuhirom)
+
 0.03  Mon, 09 Feb 2009
   * When we load one of Mo*se, we'll continue to load that backer even if
     Moose had become loaded
@@ -5,8 +9,9 @@
   * Hard dependency on Mouse
 
 0.02  Sun, 08 Feb 2009
-  * Fix compilation error.
-  * Add load_class and is_moose_loaded.
+  * Fix compilation error (rafl)
+  * Add load_class and is_moose_loaded (stevan)
 
 0.01  Sun, 05 Feb 2009
-  * Initial release.
+  * Initial release
+
