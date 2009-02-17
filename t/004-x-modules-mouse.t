@@ -17,8 +17,8 @@ do {
 
 SKIP: {
     my $loaded_moose;
-    BEGIN { $loaded_moose = eval 'require Moose' }
-    skip "Moose required for these tests to be useful" => 1 unless $loaded_moose;
+    BEGIN { $loaded_moose = eval 'require Moose; require MooseX::Types' }
+    skip "Moose and MooseX::Types required for these tests to be useful" => 1 unless $loaded_moose;
 
     do {
         package After::Moose;
