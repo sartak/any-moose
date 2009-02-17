@@ -2,10 +2,13 @@
 use strict;
 use warnings;
 use Test::More;
-plan skip_all => 'MouseX::Types not available' unless eval "require MouseX::Types; 1;";
-plan tests => 2;
 
 BEGIN { delete $ENV{ANY_MOOSE} }
+
+BEGIN {
+    plan skip_all => 'MouseX::Types not available' unless eval "require MouseX::Types";
+    plan tests => 2;
+}
 
 do {
     package Moused::Any::Moose;
