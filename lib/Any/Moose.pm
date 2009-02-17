@@ -205,12 +205,4 @@ sub _canonicalize_fragment {
 Actual documentation is forthcoming, once we solidify all the bits of the API.
 The examples above are very likely to continue working.
 
-=head1 AUTHORS
-
-Shawn M Moore, C<sartak@bestpractical.com>
-
-Florian Ragwitz C<rafl@debian.org>
-
-Stevan Little C<stevan@iinteractive.com>
-
 =cut
