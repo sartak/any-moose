@@ -7,13 +7,23 @@ require Any::Moose;
 BEGIN { delete $ENV{ANY_MOOSE} }
 
 my @tests = (
-    ''            => 'Moose',
-    'Moose'       => 'Moose',
-    'Mouse'       => 'Moose',
-    'Moose::Util' => 'Moose::Util',
-    'Mouse::Util' => 'Moose::Util',
-    '::Util'      => 'Moose::Util',
-    'Util'        => 'Moose::Util',
+    ''                => 'Moose',
+
+    'Moose'           => 'Moose',
+    'Mouse'           => 'Moose',
+
+    'Moose::Util'     => 'Moose::Util',
+    'Mouse::Util'     => 'Moose::Util',
+    '::Util'          => 'Moose::Util',
+    'Util'            => 'Moose::Util',
+
+    'MooseX::Types'   => 'MooseX::Types',
+    'MouseX::Types'   => 'MooseX::Types',
+    'X::Types'        => 'MooseX::Types',
+
+    'Moose::X::Types' => 'Moose::X::Types',
+    'Mouse::X::Types' => 'Moose::X::Types',
+    '::X::Types'      => 'Moose::X::Types',
 );
 
 plan tests => @tests / 2;
