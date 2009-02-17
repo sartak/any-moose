@@ -136,6 +136,9 @@ sub _canonicalize_fragment {
 
     return 'Moose' if !defined($fragment);
 
+    # any_moose("X::Types") -> any_moose("MooseX::Types")
+    $fragment =~ s/^X::/MooseX::/;
+
     # any_moose("::Util") -> any_moose("Moose::Util")
     $fragment =~ s/^::/Moose::/;
 
@@ -183,6 +186,9 @@ sub _canonicalize_fragment {
         '::Util::TypeConstraints' => ['subtype'],
         '::Util' => ['does_role'],
     );
+
+    # uses MouseX::Types
+    use Any::Moose 'X::Types';
 
     # gives you the right class name depending on which Mo*se was loaded
     extends any_moose('::Meta::Class');
