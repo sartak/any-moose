@@ -10,6 +10,13 @@ sub import {
     my $self = shift;
     my $pkg  = caller;
 
+    # Any::Moose gives you strict and warnings (but only the first time, in case
+    # you do something like: use Any::Moose; no strict 'refs')
+    if (!defined(_backer_of($pkg))) {
+        strict->import;
+        warnings->import;
+    }
+
     # first options are for Mo*se
     unshift @_, 'Moose' if !@_ || ref($_[0]);
 
