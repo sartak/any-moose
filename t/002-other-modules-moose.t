@@ -14,9 +14,9 @@ BEGIN {
 do {
     package Moosed::Any::Moose;
     use Any::Moose;
-    use Any::Moose '::Util::TypeConstraints' => ['subtype'];
+    use Any::Moose '::Util::TypeConstraints' => ['subtype', 'as'];
 
-    subtype 'XYZ';
+    subtype 'XYZ' => as 'Int';
     ::ok(Moose::Util::TypeConstraints::find_type_constraint('XYZ'), 'subtype used Moose');
 };
 
@@ -24,9 +24,9 @@ do {
     package After::Moose;
     use Any::Moose;
     use Any::Moose '::Util::TypeConstraints';
-    use Any::Moose '::Util::TypeConstraints' => ['subtype'];
+    use Any::Moose '::Util::TypeConstraints' => ['subtype', 'as'];
 
-    subtype 'ABC';
+    subtype 'ABC' => as 'Int';
     ::ok(Moose::Util::TypeConstraints::find_type_constraint('ABC'), 'subtype used Moose');
 };
 
