@@ -1,3 +1,7 @@
+0.05  Wed, 25 Feb 2009
+  * Stop using ambiguous ways of creating named subtypes in the tests. This
+    makes them pass again with Moose >= 0.72. (rafl)
+
 0.04  Tue, 17 Feb 2009
   * Any::Moose now gives you strict and warnings (oops!)
   * Support "use Any::Moose 'X::Types'" (tokuhirom)
