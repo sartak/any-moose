@@ -121,7 +121,7 @@ sub any_moose {
             require $file;
         }
 
-        $fragment =~ s/^Moose/Mouse/ if $PREFERRED eq 'Mouse';
+        $fragment =~ s/^Moose/Mouse/ if mouse_is_preferred();
         return $fragment;
     }
 
@@ -131,15 +131,18 @@ sub any_moose {
 
 sub load_class {
     my ($class_name) = @_;
-    return Class::MOP::load_class($class_name) if $PREFERRED eq 'Moose';
+    return Class::MOP::load_class($class_name) if moose_is_preferred();
     return Mouse::load_class($class_name);
 }
 
 sub is_class_loaded {
     my ($class_name) = @_;
-    return Class::MOP::is_class_loaded($class_name) if $PREFERRED eq 'Moose';
+    return Class::MOP::is_class_loaded($class_name) if moose_is_preferred();
     return Mouse::is_class_loaded($class_name);
 }
+
+sub moose_is_preferred { $PREFERRED eq 'Moose' }
+sub mouse_is_preferred { $PREFERRED eq 'Mouse' }
 
 sub is_moose_loaded { !!$INC{'Class/MOP.pm'} }
 
