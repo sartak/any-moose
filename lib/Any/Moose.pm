@@ -55,7 +55,7 @@ sub _backer_of {
     return 'Mouse::Role' if $INC{'Mouse/Role.pm'}
                          && Mouse::Meta::Role->_metaclass_cache($pkg);
 
-    if (is_moose_loaded()) {
+    if (_is_moose_loaded()) {
         my $meta = Class::MOP::get_metaclass_by_name($pkg);
         if ($meta) {
             return 'Moose::Role' if $meta->isa('Moose::Meta::Role');
@@ -115,7 +115,7 @@ sub any_moose {
     # If we're loading up the backing class...
     if ($fragment eq 'Moose' || $fragment eq 'Moose::Role') {
         if (!$PREFERRED) {
-            $PREFERRED = is_moose_loaded() ? 'Moose' : 'Mouse';
+            $PREFERRED = _is_moose_loaded() ? 'Moose' : 'Mouse';
 
             (my $file = $PREFERRED . '.pm') =~ s{::}{/}g;
             require $file;
@@ -144,7 +144,12 @@ sub is_class_loaded {
 sub moose_is_preferred { $PREFERRED eq 'Moose' }
 sub mouse_is_preferred { $PREFERRED eq 'Mouse' }
 
-sub is_moose_loaded { !!$INC{'Class/MOP.pm'} }
+sub _is_moose_loaded { !!$INC{'Class/MOP.pm'} }
+
+sub is_moose_loaded {
+    Carp::carp("Any::Moose::is_moose_loaded is deprecated. Please use Any::Moose::moose_is_preferred instead");
+    goto \&_is_moose_loaded;
+}
 
 sub _canonicalize_fragment {
     my $fragment = shift;
