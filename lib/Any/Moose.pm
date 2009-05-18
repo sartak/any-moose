@@ -141,6 +141,8 @@ sub is_class_loaded {
     return Mouse::is_class_loaded($class_name);
 }
 
+sub is_moose_loaded { !!$INC{'Class/MOP.pm'} }
+
 sub _canonicalize_fragment {
     my $fragment = shift;
 
