@@ -8,7 +8,7 @@ BEGIN { delete $ENV{ANY_MOOSE} }
 package Test;
 BEGIN {
     ::use_ok('Any::Moose');
-    ::ok(!Any::Moose::is_moose_loaded(), '... Moose is not loaded');
+    ::ok(!Any::Moose::_is_moose_loaded(), '... Moose is not loaded');
 }
 
 {
@@ -18,7 +18,7 @@ BEGIN {
             eval 'use Moose';
             ::skip 'Moose not installed', 1 if $@;
 
-            ::ok(Any::Moose::is_moose_loaded(), '... Moose is loaded');
+            ::ok(Any::Moose::_is_moose_loaded(), '... Moose is loaded');
         }
     }
 }
