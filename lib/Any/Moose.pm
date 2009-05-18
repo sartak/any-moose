@@ -131,19 +131,15 @@ sub any_moose {
 
 sub load_class {
     my ($class_name) = @_;
-    return Class::MOP::load_class($class_name)
-        if is_moose_loaded();
+    return Class::MOP::load_class($class_name) if $PREFERRED eq 'Moose';
     return Mouse::load_class($class_name);
 }
 
 sub is_class_loaded {
     my ($class_name) = @_;
-    return Class::MOP::is_class_loaded($class_name)
-        if is_moose_loaded();
+    return Class::MOP::is_class_loaded($class_name) if $PREFERRED eq 'Moose';
     return Mouse::is_class_loaded($class_name);
 }
-
-sub is_moose_loaded { !!$INC{'Class/MOP.pm'} }
 
 sub _canonicalize_fragment {
     my $fragment = shift;
