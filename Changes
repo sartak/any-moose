@@ -1,3 +1,9 @@
+0.08  Mon 18 May 2009
+  * Add moose_is_preferred and mouse_is_preferred functions for when you
+    need to care about which backend is in use (Sartak)
+  * Deprecate the internal is_moose_loaded in favor of moose_is_preferred
+    (Sartak)
+
 0.07  Fri, 10 Apr 2009
   * Depend on Mouse 0.20 for better compatibility with Moose >= 0.74 (rafl).
 
