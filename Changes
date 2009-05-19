@@ -1,3 +1,6 @@
+0.09  Tue 19 May 2009
+  * Depend on Mouse 0.21.
+
 0.08  Mon 18 May 2009
   * Add moose_is_preferred and mouse_is_preferred functions for when you
     need to care about which backend is in use (Sartak)
