@@ -5,7 +5,11 @@ use Test::More;
 
 BEGIN { delete $ENV{ANY_MOOSE} }
 
-plan tests => 2;
+BEGIN {
+    eval 'require Mouse';
+    plan skip_all => 'Mouse not available' if $@;
+    plan tests => 2;
+}
 
 {
     package MyFoo;
