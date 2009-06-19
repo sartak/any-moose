@@ -115,7 +115,19 @@ sub any_moose {
     # If we're loading up the backing class...
     if ($fragment eq 'Moose' || $fragment eq 'Moose::Role') {
         if (!$PREFERRED) {
-            $PREFERRED = _is_moose_loaded() ? 'Moose' : 'Mouse';
+            if (_is_moose_loaded()) {
+                $PREFERRED = 'Moose';
+            }
+            elsif (eval { require Mouse; 1 }) {
+                $PREFERRED = 'Mouse';
+            }
+            elsif (eval { require Moose; 1 }) {
+                $PREFERRED = 'Moose';
+            }
+            else {
+                require Carp;
+                confess("Unable to locate Mouse or Moose in INC");
+            }
 
             (my $file = $PREFERRED . '.pm') =~ s{::}{/}g;
             require $file;
