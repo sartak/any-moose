@@ -17,7 +17,7 @@ do {
     use Any::Moose '::Util::TypeConstraints' => ['subtype', 'as'];
 
     subtype 'XYZ' => as 'Int';
-    ::ok(Mouse::Util::TypeConstraints::optimized_constraints()->{XYZ}, 'subtype used Mouse');
+    ::ok(Mouse::Util::TypeConstraints::find_type_constraint('XYZ'), 'subtype used Mouse');
 };
 
 SKIP: {
@@ -32,8 +32,7 @@ SKIP: {
         use Any::Moose '::Util::TypeConstraints' => ['subtype', 'as'];
 
         subtype 'ABC' => as 'Int';
-        #::ok(Mouse::Util::TypeConstraints::find_type_constraint('ABC'), 'subtype used Mouse');
-        ::ok(Mouse::Util::TypeConstraints::optimized_constraints()->{ABC}, 'subtype used Mouse');
+        ::ok(Mouse::Util::TypeConstraints::find_type_constraint('ABC'), 'subtype used Mouse');
     };
 };
 
