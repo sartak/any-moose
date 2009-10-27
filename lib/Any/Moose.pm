@@ -108,12 +108,14 @@ sub any_moose {
 
     # Mouse gets first dibs because it doesn't introspect existing classes
 
-    if ((_backer_of($package)||'') =~ /^Mouse/) {
+    my $backer = _backer_of($package) || '';
+
+    if ($backer =~ /^Mouse/) {
         $fragment =~ s/^Moose/Mouse/;
         return $fragment;
     }
 
-    return $fragment if (_backer_of($package)||'') =~ /^Moose/;
+    return $fragment if $backer =~ /^Moose/;
 
     # If we're loading up the backing class...
     if ($fragment eq 'Moose' || $fragment eq 'Moose::Role') {
@@ -129,7 +131,7 @@ sub any_moose {
             }
             else {
                 require Carp;
-                confess("Unable to locate Mouse or Moose in INC");
+                Carp::confess("Unable to locate Mouse or Moose in INC");
             }
 
             (my $file = $PREFERRED . '.pm') =~ s{::}{/}g;
