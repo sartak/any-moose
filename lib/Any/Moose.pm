@@ -50,10 +50,13 @@ sub unimport {
 sub _backer_of {
     my $pkg = shift;
 
-    return 'Mouse' if $INC{'Mouse.pm'}
-                   && Mouse::Meta::Class->_metaclass_cache($pkg);
-    return 'Mouse::Role' if $INC{'Mouse/Role.pm'}
-                         && Mouse::Meta::Role->_metaclass_cache($pkg);
+    if(exists $INC{'Mouse.pm'}){
+        my $meta = Mouse::Util::get_metaclass_by_name($pkg);
+        if ($meta) {
+            return 'Mouse::Role' if $meta->isa('Mouse::Meta::Role');
+            return 'Mouse'       if $meta->isa('Mouse::Meta::Class');
+       }
+    }
 
     if (_is_moose_loaded()) {
         my $meta = Class::MOP::get_metaclass_by_name($pkg);
