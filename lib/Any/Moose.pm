@@ -161,7 +161,7 @@ sub is_class_loaded {
 sub moose_is_preferred { $PREFERRED eq 'Moose' }
 sub mouse_is_preferred { $PREFERRED eq 'Mouse' }
 
-sub _is_moose_loaded { !!$INC{'Class/MOP.pm'} }
+sub _is_moose_loaded { exists $INC{'Class/MOP.pm'} }
 
 sub is_moose_loaded {
     Carp::carp("Any::Moose::is_moose_loaded is deprecated. Please use Any::Moose::moose_is_preferred instead");
