@@ -4,7 +4,10 @@ package Any::Moose;
 use strict;
 use warnings;
 
+use Carp ();
+
 our $PREFERRED = $ENV{'ANY_MOOSE'};
+
 
 sub import {
     my $self = shift;
@@ -35,13 +38,24 @@ sub import {
 }
 
 sub unimport {
-    my $self = shift;
-    my $pkg  = caller;
+    my $sel = shift;
+    my $pkg = caller;
+    my $module;
 
-    my $backer = _backer_of($pkg);
-
-    eval "package $pkg;\n"
-       . '$backer->unimport(@_);';
+    if(@_){
+        $module = any_moose(shift, $pkg);
+    }
+    else {
+        $module = _backer_of($pkg);
+    }
+    my $e = do{
+        local $@;
+        eval "package $pkg;\n"
+           . '$module->unimport();';
+        $@;
+   };
+   Carp::croak("Cannot unimport Any::Moose: $e") if $e;
+   return;
 }
 
 sub _backer_of {
