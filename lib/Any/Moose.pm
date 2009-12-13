@@ -117,33 +117,27 @@ sub any_moose {
 
     return $fragment if $backer =~ /^Moose/;
 
-    # If we're loading up the backing class...
-    if ($fragment eq 'Moose' || $fragment eq 'Moose::Role') {
-        if (!$PREFERRED) {
-            if (_is_moose_loaded()) {
-                $PREFERRED = 'Moose';
-            }
-            elsif (eval { require Mouse; 1 }) {
-                $PREFERRED = 'Mouse';
-            }
-            elsif (eval { require Moose; 1 }) {
-                $PREFERRED = 'Moose';
-            }
-            else {
-                require Carp;
-                Carp::confess("Unable to locate Mouse or Moose in INC");
-            }
-
-            (my $file = $PREFERRED . '.pm') =~ s{::}{/}g;
-            require $file;
+    if (!$PREFERRED) {
+        if (_is_moose_loaded()) {
+            $PREFERRED = 'Moose';
+        }
+        elsif (eval { require Mouse; 1 }) {
+            $PREFERRED = 'Mouse';
+        }
+        elsif (eval { require Moose; 1 }) {
+            $PREFERRED = 'Moose';
+        }
+        else {
+            require Carp;
+            Carp::confess("Unable to locate Mouse or Moose in INC");
         }
 
-        $fragment =~ s/^Moose/Mouse/ if mouse_is_preferred();
-        return $fragment;
+        (my $file = $PREFERRED . '.pm') =~ s{::}{/}g;
+        require $file;
     }
 
-    require Carp;
-    Carp::croak("Neither Moose nor Mouse backs the '$package' package.");
+    $fragment =~ s/^Moose/Mouse/ if mouse_is_preferred();
+    return $fragment;
 }
 
 sub load_class {
