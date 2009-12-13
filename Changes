@@ -1,3 +1,7 @@
+0.11
+  * Support "use Any::Moose '::Util::TypeConstraints'"
+  * Support "no Any::Moose '::Util::TypeConstraints'"
+
 0.10  Fri 19 Jun 2009
   * Fix META.yml
 
