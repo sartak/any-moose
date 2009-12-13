@@ -135,6 +135,7 @@ sub any_moose {
     return $fragment if $backer =~ /^Moose/;
 
     if (!$PREFERRED) {
+        local $@;
         if (_is_moose_loaded()) {
             $PREFERRED = 'Moose';
         }
