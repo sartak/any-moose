@@ -1,13 +1,13 @@
 package Any::Moose;
 # ABSTRACT: use Moose or Mouse modules
 
+use 5.006_002;
 use strict;
 use warnings;
 
 use Carp ();
 
 our $PREFERRED = $ENV{'ANY_MOOSE'};
-
 
 sub import {
     my $self = shift;
