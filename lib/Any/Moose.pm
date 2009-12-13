@@ -121,19 +121,16 @@ sub any_moose {
         if (_is_moose_loaded()) {
             $PREFERRED = 'Moose';
         }
-        elsif (eval { require Mouse; 1 }) {
+        elsif (eval { require Mouse }) {
             $PREFERRED = 'Mouse';
         }
-        elsif (eval { require Moose; 1 }) {
+        elsif (eval { require Moose }) {
             $PREFERRED = 'Moose';
         }
         else {
             require Carp;
             Carp::confess("Unable to locate Mouse or Moose in INC");
         }
-
-        (my $file = $PREFERRED . '.pm') =~ s{::}{/}g;
-        require $file;
     }
 
     $fragment =~ s/^Moose/Mouse/ if mouse_is_preferred();
