@@ -180,7 +180,7 @@ sub is_moose_loaded {
 sub _canonicalize_fragment {
     my $fragment = shift;
 
-    return 'Moose' if !defined($fragment);
+    return 'Moose' if !$fragment;
 
     # any_moose("X::Types") -> any_moose("MooseX::Types")
     $fragment =~ s/^X::/MooseX::/;
@@ -193,9 +193,6 @@ sub _canonicalize_fragment {
 
     # any_moose("Util") -> any_moose("Moose::Util")
     $fragment =~ s/^(?!Moose)/Moose::/;
-
-    # any_moose("Moose::") (via any_moose("")) -> any_moose("Moose")
-    $fragment =~ s/^Moose::$/Moose/;
 
     return $fragment;
 }
