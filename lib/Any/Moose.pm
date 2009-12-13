@@ -109,8 +109,14 @@ sub _install_module {
 
     require $file;
 
-    eval "package $options->{package};\n"
-       . '$module->import(@{ $options->{imports} });';
+    my $e = do {
+        local $@;
+        eval "package $options->{package};\n"
+           . '$module->import(@{ $options->{imports} });';
+        $@;
+    };
+    Carp::croak("Cannot import Any::Moose: $e") if $e;
+    return;
 }
 
 sub any_moose {
