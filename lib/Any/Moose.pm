@@ -198,6 +198,7 @@ sub _canonicalize_fragment {
 }
 
 1;
+__END__
 
 =head1 SYNOPSIS
 
@@ -207,6 +208,9 @@ sub _canonicalize_fragment {
 
     # uses Moose if it's loaded, Mouse otherwise
     use Any::Moose;
+
+    # cleans the namespace up
+    no Any::Moose;
 
 =head2 OTHER MODULES
 
