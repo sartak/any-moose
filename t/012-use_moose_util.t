@@ -8,13 +8,16 @@ BEGIN { delete $ENV{ANY_MOOSE} }
 BEGIN {
     eval 'require Moose';
     plan skip_all => 'Moose not available' if $@;
-    plan tests => 1;
+    plan tests => 2;
 }
 
 {
     package My::Package;
-    use Any::Moose '::Util' => [qw(does_role)];
+    use Any::Moose '::Util::TypeConstraints' => [qw(type)];
 
-    ::ok defined(&does_role);
+    ::ok defined(&type);
+
+    no Any::Moose '::Util::TypeConstraints';
 }
 
+ok !My::Package->can('type');
