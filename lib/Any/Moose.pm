@@ -167,13 +167,11 @@ sub any_moose {
     return $fragment;
 }
 
-for (
-    [load_class => 'Class::MOP::load_class', 'Mouse::load_class'],
-    [is_class_loaded => 'Class::MOP::is_class_loaded', 'Mouse::is_class_loaded'],
-) {
-    my ($function_name, $moose_symbol, $mouse_symbol) = @$_;
+for my $name (qw/load_class is_class_loaded/) {
     no strict 'refs';
-    *{__PACKAGE__.'::'.$function_name} = moose_is_preferred() ? $moose_symbol : $mouse_symbol;
+    *{__PACKAGE__."::$name"} = moose_is_preferred()
+        ? *{"Class::MOP::$name"}
+        : *{"Mouse::Util::$name"};
 }
 
 sub moose_is_preferred { $PREFERRED eq 'Moose' }
