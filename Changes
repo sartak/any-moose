@@ -1,3 +1,15 @@
+0.12  Fri 02 Apr 2010
+  * t/000-version.t for better diagnostics (tokuhirom)
+  * Slight performance improvements for is_class_loaded,
+      lazily loading Carp, etc (Sartak)
+  * Start some real documentation (Sartak)
+  * Document $ENV{ANY_MOOSE} (Sartak)
+    - fixes [rt.cpan.org #52339]
+  * Test that Moose is loaded, not CMOP (Sartak)
+    - fixes [rt.cpan.org #56093]
+  * Alias class_of and more functions (Sartak)
+    - requested by [rt.cpan.org #52275]
+
 0.11  Sun 19 Dec 2009
   * Support "use Any::Moose '::Util::TypeConstraints'" (gfx)
   * Support "no Any::Moose '::Util::TypeConstraints'" (gfx)
