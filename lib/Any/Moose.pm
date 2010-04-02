@@ -167,7 +167,7 @@ sub any_moose {
     return $fragment;
 }
 
-for my $name (qw/load_class is_class_loaded/) {
+for my $name (qw/load_class is_class_loaded class_of get_metaclass_by_name get_all_metaclass_instances get_all_metaclass_names/) {
     no strict 'refs';
     *{__PACKAGE__."::$name"} = moose_is_preferred()
         ? *{"Class::MOP::$name"}
