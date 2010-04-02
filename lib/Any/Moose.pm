@@ -5,7 +5,30 @@ use 5.006_002;
 use strict;
 use warnings;
 
-our $PREFERRED = $ENV{'ANY_MOOSE'};
+# decide which backend to use
+our $PREFERRED;
+do {
+    local $@;
+    if ($ENV{ANY_MOOSE}) {
+        $PREFERRED = $ENV{'ANY_MOOSE'};
+        die "ANY_MOOSE is not set to Moose or Mouse"
+            unless $PREFERRED eq 'Moose'
+                || $PREFERRED eq 'Mouse';
+    }
+    elsif (_is_moose_loaded()) {
+        $PREFERRED = 'Moose';
+    }
+    elsif (eval { require Mouse }) {
+        $PREFERRED = 'Mouse';
+    }
+    elsif (eval { require Moose }) {
+        $PREFERRED = 'Moose';
+    }
+    else {
+        require Carp;
+        Carp::confess("Unable to locate Mouse or Moose in INC");
+    }
+};
 
 sub import {
     my $self = shift;
@@ -139,23 +162,6 @@ sub any_moose {
     }
 
     return $fragment if $backer =~ /^Moose/;
-
-    if (!$PREFERRED) {
-        local $@;
-        if (_is_moose_loaded()) {
-            $PREFERRED = 'Moose';
-        }
-        elsif (eval { require Mouse }) {
-            $PREFERRED = 'Mouse';
-        }
-        elsif (eval { require Moose }) {
-            $PREFERRED = 'Moose';
-        }
-        else {
-            require Carp;
-            Carp::confess("Unable to locate Mouse or Moose in INC");
-        }
-    }
 
     $fragment =~ s/^Moose/Mouse/ if mouse_is_preferred();
     return $fragment;
