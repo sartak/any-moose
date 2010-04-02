@@ -213,7 +213,7 @@ __END__
 
     package Class;
 
-    # uses Moose if it's loaded, Mouse otherwise
+    # uses Moose if it's loaded or demanded, Mouse otherwise
     use Any::Moose;
 
     # cleans the namespace up
@@ -228,6 +228,13 @@ __END__
     # Mouse::Util::TypeConstraints otherwise.
     use Any::Moose '::Util::TypeConstraints';
 
+=head2 ROLES
+
+    package My::Sorter;
+    use Any::Moose 'Role';
+
+    requires 'cmp';
+
 =head2 COMPLEX USAGE
 
     package My::Meta::Class;
@@ -241,7 +248,7 @@ __END__
         '::Util' => ['does_role'],
     );
 
-    # uses MouseX::Types
+    # uses MouseX::Types or MooseX::Types
     use Any::Moose 'X::Types';
 
     # gives you the right class name depending on which Mo*se was loaded
