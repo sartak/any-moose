@@ -242,13 +242,33 @@ __END__
 
 =head1 DESCRIPTION
 
-Actual documentation is forthcoming, once we solidify all the bits of the API.
-The examples above are very likely to continue working.
+Though we recommend that people generally use L<Moose>, we accept that Moose
+cannot yet be used for everything everywhere. People generally like the Moose
+sugar, so many people use L<Mouse>, a lightweight replacement for parts of
+Moose.
+
+Because Mouse strives for compatibility with Moose, it's easy to substitute one
+for the other. This module facilitates that substitution. By default, Mouse
+will be provided to libraries, unless Moose is already loaded -or-
+explicitly requested by the end-user. The end-user can force the decision
+of which backend to use by setting the environment variable C<ANY_MOOSE> to
+be C<Moose> or C<Mouse>.
+
+Note that the decision of which backend to use is made only once, so that if
+Any-Moose picks Mouse, then a third-party library loads Moose, anything else
+that uses Any-Moose will continue to pick Mouse.
+
+So, if you have to use L<Mouse>, please be considerate to the Moose fanboys
+(like myself!) and use L<Any-Moose> instead. C<:)>
 
 =head1 SEE ALSO
 
 L<Moose>
 
 L<Mouse>
+
+L<Squirrel> - a deprecated first-stab at Any-Moose-like logic. Its biggest
+fault was in making the decision of which backend to use every time it was
+used, rather than just once.
 
 =cut
