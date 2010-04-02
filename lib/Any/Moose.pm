@@ -11,7 +11,7 @@ do {
     local $@;
     if ($ENV{ANY_MOOSE}) {
         $PREFERRED = $ENV{'ANY_MOOSE'};
-        die "ANY_MOOSE is not set to Moose or Mouse"
+        warn "ANY_MOOSE is not set to Moose or Mouse"
             unless $PREFERRED eq 'Moose'
                 || $PREFERRED eq 'Mouse';
 
@@ -35,7 +35,7 @@ do {
     }
     else {
         require Carp;
-        Carp::confess("Unable to locate Mouse or Moose in INC");
+        warn "Unable to locate Mouse or Moose in INC";
     }
 };
 
