@@ -167,16 +167,13 @@ sub any_moose {
     return $fragment;
 }
 
-sub load_class {
-    my ($class_name) = @_;
-    return Class::MOP::load_class($class_name) if moose_is_preferred();
-    return Mouse::load_class($class_name);
-}
-
-sub is_class_loaded {
-    my ($class_name) = @_;
-    return Class::MOP::is_class_loaded($class_name) if moose_is_preferred();
-    return Mouse::is_class_loaded($class_name);
+for (
+    [load_class => 'Class::MOP::load_class', 'Mouse::load_class'],
+    [is_class_loaded => 'Class::MOP::is_class_loaded', 'Mouse::is_class_loaded'],
+) {
+    my ($function_name, $moose_symbol, $mouse_symbol) = @$_;
+    no strict 'refs';
+    *{__PACKAGE__.'::'.$function_name} = moose_is_preferred() ? $moose_symbol : $mouse_symbol;
 }
 
 sub moose_is_preferred { $PREFERRED eq 'Moose' }
