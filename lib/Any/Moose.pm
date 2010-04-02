@@ -5,8 +5,6 @@ use 5.006_002;
 use strict;
 use warnings;
 
-use Carp ();
-
 our $PREFERRED = $ENV{'ANY_MOOSE'};
 
 sub import {
@@ -54,7 +52,12 @@ sub unimport {
            . '$module->unimport();';
         $@;
    };
-   Carp::croak("Cannot unimport Any::Moose: $e") if $e;
+
+   if ($e) {
+        require Carp;
+        Carp::croak("Cannot unimport Any::Moose: $e");
+   }
+
    return;
 }
 
@@ -115,7 +118,10 @@ sub _install_module {
            . '$module->import(@{ $options->{imports} });';
         $@;
     };
-    Carp::croak("Cannot import Any::Moose: $e") if $e;
+    if ($e) {
+        require Carp;
+        Carp::croak("Cannot import Any::Moose: $e");
+    }
     return;
 }
 
@@ -173,6 +179,7 @@ sub mouse_is_preferred { $PREFERRED eq 'Mouse' }
 sub _is_moose_loaded { exists $INC{'Class/MOP.pm'} }
 
 sub is_moose_loaded {
+    require Carp;
     Carp::carp("Any::Moose::is_moose_loaded is deprecated. Please use Any::Moose::moose_is_preferred instead");
     goto \&_is_moose_loaded;
 }
