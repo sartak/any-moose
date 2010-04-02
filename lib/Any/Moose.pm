@@ -14,6 +14,15 @@ do {
         die "ANY_MOOSE is not set to Moose or Mouse"
             unless $PREFERRED eq 'Moose'
                 || $PREFERRED eq 'Mouse';
+
+        # if we die here, then perl gives "unknown error" which doesn't tell
+        # you what the problem is at all. argh.
+        if ($PREFERRED eq 'Moose' && !eval { require Moose }) {
+            warn "\$ANY_MOOSE is set to Moose but we cannot load it";
+        }
+        elsif ($PREFERRED eq 'Mouse' && !eval { require Mouse }) {
+            warn "\$ANY_MOOSE is set to Mouse but we cannot load it";
+        }
     }
     elsif (_is_moose_loaded()) {
         $PREFERRED = 'Moose';
