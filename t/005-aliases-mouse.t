@@ -8,7 +8,7 @@ BEGIN { delete $ENV{ANY_MOOSE} }
 BEGIN {
     eval 'require Mouse;';
     plan skip_all => 'Mouse not available' if $@;
-    plan tests => 20;
+    plan tests => 21;
 }
 
 package MyClass;
@@ -46,3 +46,5 @@ is((grep { $_ eq 'MyClass' } Any::Moose::get_all_metaclass_names()), 1);
 is((grep { $_ eq 'AnyMooseTest' } Any::Moose::get_all_metaclass_names()), 1);
 is((grep { $_ eq 'NonexistentTest' } Any::Moose::get_all_metaclass_names()), 0);
 
+my $c = Any::Moose::load_first_existing_class('Any::Moose::No::Such::Module', 'strict');
+is $c, 'strict', 'load_first_existing_class';
