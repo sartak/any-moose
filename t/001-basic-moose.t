@@ -6,42 +6,36 @@ use Test::More;
 BEGIN { delete $ENV{ANY_MOOSE} }
 
 BEGIN {
-    eval 'require Mouse';
-    plan skip_all => 'Mouse not available' if $@;
+    eval 'require Moose';
+    plan skip_all => 'Moose not available' if $@;
     plan tests => 9;
 }
 
 do {
-    package Moused::Any::Moose;
+    package Moosed::Any::Moose;
     use Any::Moose;
 
     ::ok(__PACKAGE__->can('meta'), 'Mo*se was installed');
-    ::like(__PACKAGE__->meta, qr/^Mouse/, 'Mouse was installed');
+    ::like(__PACKAGE__->meta, qr/^Moose/, 'Moose was installed');
 
-    ::is(any_moose, 'Mouse');
-    ::is(any_moose('::Util::TypeConstraints'), 'Mouse::Util::TypeConstraints');
+    ::is(any_moose, 'Moose');
+    ::is(any_moose('::Util::TypeConstraints'), 'Moose::Util::TypeConstraints');
 
-    ::is(any_moose, 'Mouse', 'still Mouse even if Moose is loaded');
+    ::is(any_moose, 'Moose', 'still Moose even if Moose is loaded');
 
     no Any::Moose;
 };
 
-ok(!Moused::Any::Moose->can('has'), "has was unimported");
+ok(!Moosed::Any::Moose->can('has'), "has was unimported");
 
-SKIP: {
-    my $loaded_moose;
-    BEGIN { $loaded_moose = eval 'require Moose' }
-    skip "Moose required for these tests to be useful" => 3 unless $loaded_moose;
+do {
+    package After::Moose;
+    use Any::Moose;
 
-    do {
-        package After::Moose;
-        use Any::Moose;
+    ::is(any_moose, 'Moose');
+    ::is(any_moose('::Util::TypeConstraints'), 'Moose::Util::TypeConstraints');
 
-        ::is(any_moose, 'Mouse');
-        ::is(any_moose('::Util::TypeConstraints'), 'Mouse::Util::TypeConstraints');
+    no Any::Moose;
+};
 
-        no Any::Moose;
-    };
-
-    ok(!After::Moose->can('has'), "has was unimported");
-}
+ok(!After::Moose->can('has'), "has was unimported");
