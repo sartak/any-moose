@@ -6,7 +6,7 @@ use Test::More;
 BEGIN { delete $ENV{ANY_MOOSE} }
 
 BEGIN {
-    plan skip_all => 'Mouse or MouseX::Types not available' unless eval "require Mouse; require MouseX::Types";
+    plan skip_all => 'Mouse or MouseX::Types 0.03 not available' unless eval "require Mouse; require MouseX::Types 0.03;";
     plan tests => 2;
 }
 
