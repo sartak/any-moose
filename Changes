@@ -1,3 +1,7 @@
+0.14 2011-04-29
+  * Skip t/004-x-modules-mouse.t if you don't have MouseX::Types 0.03 since
+    older versions do not work with modern Mouse (Sartak, reported by ewilhelm)
+
 0.13  Wed 19 May 2010
   * Add load_first_existing_class (gfx)
 
