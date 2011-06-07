@@ -1,3 +1,8 @@
+0.15 2011-06-07
+  * Standardize the tests' Mouse/Moose loading eval/skip code
+    (Sartak, reported by Daniel Macks)
+    - fixes [rt.cpan.org #68657]
+
 0.14 2011-04-29
   * Skip t/004-x-modules-mouse.t if you don't have MouseX::Types 0.03 since
     older versions do not work with modern Mouse (Sartak, reported by ewilhelm)
