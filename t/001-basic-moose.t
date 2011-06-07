@@ -6,8 +6,8 @@ use Test::More;
 BEGIN { delete $ENV{ANY_MOOSE} }
 
 BEGIN {
-    eval 'require Moose';
-    plan skip_all => 'Moose not available' if $@;
+    eval 'use Moose ()';
+    plan skip_all => "Moose unavailable: $@" if $@;
     plan tests => 9;
 }
 

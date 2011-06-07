@@ -6,7 +6,11 @@ use Test::More;
 BEGIN { delete $ENV{ANY_MOOSE} }
 
 BEGIN {
-    plan skip_all => 'Mouse or MouseX::Types 0.03 not available' unless eval "require Mouse; require MouseX::Types 0.03;";
+    eval 'use Mouse ()';
+    plan skip_all => "Mouse unavailable: $@" if $@;
+    eval 'use MouseX::Types 0.03';
+    plan skip_all => "Mouse::Types 0.03 unavailable: $@" if $@;
+
     plan tests => 2;
 }
 
@@ -19,9 +23,10 @@ do {
 };
 
 SKIP: {
-    my $loaded_moose;
-    BEGIN { $loaded_moose = eval 'require Moose; require MooseX::Types' }
-    skip "Moose and MooseX::Types required for these tests to be useful" => 1 unless $loaded_moose;
+    eval 'use Moose ()';
+    skip "Moose unavailable: $@" => 1 if $@;
+    eval 'use MooseX::Types ()';
+    skip "MooseX::Types unavailable: $@" => 1 if $@;
 
     do {
         package After::Moose;

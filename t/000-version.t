@@ -12,10 +12,10 @@ show_version($_) for qw/
 
 sub show_version {
     my $klass = shift;
-    if (eval "require $klass; 1;") {
+    if (eval "use $klass (); 1") {
         no strict 'refs';
         diag "$klass: " . ${"${klass}::VERSION"};
     } else {
-        diag "$klass not found";
+        diag "$klass unavailable: $@";
     }
 }

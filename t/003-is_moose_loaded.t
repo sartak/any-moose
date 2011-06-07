@@ -6,8 +6,8 @@ use Test::More;
 BEGIN { delete $ENV{ANY_MOOSE} }
 
 BEGIN {
-    eval 'require Mouse';
-    plan skip_all => 'Mouse not available' if $@;
+    eval 'use Mouse ()';
+    plan skip_all => "Mouse unavailable: $@" if $@;
     plan tests => 3;
 }
 
@@ -21,8 +21,8 @@ BEGIN {
     package Foo;
     BEGIN {
         SKIP: {
-            eval 'use Moose';
-            ::skip 'Moose not installed', 1 if $@;
+            eval 'use Moose ()';
+            ::skip "Moose unavailable: $@", 1 if $@;
 
             ::ok(Any::Moose::_is_moose_loaded(), '... Moose is loaded');
         }

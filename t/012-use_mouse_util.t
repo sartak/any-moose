@@ -6,8 +6,8 @@ use Test::More;
 BEGIN { delete $ENV{ANY_MOOSE} }
 
 BEGIN {
-    eval 'require Mouse';
-    plan skip_all => 'Mouse not available' if $@;
+    eval 'use Mouse ()';
+    plan skip_all => "Mouse unavailable: $@" if $@;
     plan tests => 2;
 }
 
