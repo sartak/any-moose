@@ -17,7 +17,8 @@ for my $modules (@{ powerset(@all_modules) }) {
     $ENV{PERL5OPT} = "-MTest::Without::Module=$list";
     system("prove");
 
-    push @{ $results{ $? >> 8 ? "NOT OK" : "OK" } }, $list;
+    my $result = $? >> 8 ? "NOT OK" : "OK";
+    push @{ $results{$result} }, $list;
 }
 
 for my $result (sort keys %results) {
