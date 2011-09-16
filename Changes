@@ -1,3 +1,7 @@
+0.17 2011-09-16
+  * Better indicate that this module is dynamically configured.
+    - fixes [rt.cpan.org #70996]
+
 0.16 2011-09-15
   * If you have Moose installed you no longer get the Mouse dependency (rjbs, reported by andk)
      Any::Moose has long had both runtime and test support for Moose
