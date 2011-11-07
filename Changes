@@ -1,3 +1,8 @@
+0.18 2011-11-07
+  * Try to cope with broken smokers better by recording a Moose
+    prereq when it is used. (Chris Williams)
+    - see https://rt.cpan.org/Public/Bug/Display.html?id=72043
+
 0.17 2011-09-16
   * Better indicate that this module is dynamically configured.
     - fixes [rt.cpan.org #70996]
