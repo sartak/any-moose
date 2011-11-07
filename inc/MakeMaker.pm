@@ -16,6 +16,8 @@ $WriteMakefileArgs{PREREQ_PM} ||= {};
 
 if (eval { require Moose }) {
   # we have any version of Moose; good enough! -- rjbs, 2011-09-15
+  # This should fix a crufty edge-case with cpantesting -- bingos, 2011-11-07
+  $WriteMakefileArgs{PREREQ_PM}{Moose} = '0';
 } else {
   # No Moose?  Well, we need *something* to test with, so we'll ask for the
   # lighter-weight one, Mouse. -- rjbs, 2011-09-15
