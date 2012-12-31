@@ -314,6 +314,8 @@ So, if you have to use L<Mouse>, please be considerate to the Moose fanboys
 
 L<Moose>
 
+L<Moo>
+
 L<Mouse>
 
 L<Squirrel> - a deprecated first-stab at Any-Moose-like logic. Its biggest
