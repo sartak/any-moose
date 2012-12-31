@@ -1,3 +1,6 @@
+0.19 2012-12-30
+  * Deprecated in favor of Moo. Good night, sweet prince.
+
 0.18 2011-11-07
   * Try to cope with broken smokers better by recording a Moose
     prereq when it is used. (Chris Williams)
