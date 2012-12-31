@@ -1,5 +1,5 @@
 package Any::Moose;
-# ABSTRACT: use Moose or Mouse modules
+# ABSTRACT: *deprecated* - use Moo instead!
 
 use 5.006_002;
 use strict;
@@ -224,6 +224,23 @@ sub _canonicalize_fragment {
 
 1;
 __END__
+
+=head1 DEPRECATION
+
+Please use L<Moo> instead of Any::Moose for new code.
+
+Moo classes and roles will transparently and correctly upgrade to
+Moose when needed. This is a fundamentally better design than what
+Any::Moose offers. Mouse metaclasses do not interact with Moose
+metaclasses which leaks abstractions all over the place.
+
+Any::Moose had a good run. It was a simplistic but expedient answer
+for getting Moose syntax on the cheap but with the transparent
+upgrade path to Moose when you needed it. But really, please don't
+use it any more. :)
+
+You may find L<MooX::late> useful for porting your code from
+Any::Moose to Moo.
 
 =head1 SYNOPSIS
 
