@@ -227,6 +227,8 @@ __END__
 
 =head1 DEPRECATION
 
+日本語翻訳: http://blog.64p.org/entry/2013/02/06/094906
+
 Please use L<Moo> instead of Any::Moose for new code.
 
 Moo classes and roles will transparently and correctly upgrade to
